@@ -13,7 +13,25 @@ var xhub = require('express-x-hub');
 
 app.set('port', (process.env.PORT || 5000));
 app.listen(app.get('port'));
+// Add headers
+app.use(function (req, res, next) {
 
+    // Website you wish to allow to connect
+    res.setHeader('Access-Control-Allow-Origin', '*');
+
+    // Request methods you wish to allow
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+    // Request headers you wish to allow
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+    // Set to true if you need the website to include cookies in the requests sent
+    // to the API (e.g. in case you use sessions)
+    res.setHeader('Access-Control-Allow-Credentials', true);
+
+    // Pass to next layer of middleware
+    next();
+});
 app.use(xhub({ algorithm: 'sha1', secret: process.env.APP_SECRET }));
 app.use(bodyParser.json());
 
@@ -21,7 +39,6 @@ var token = process.env.TOKEN || 'token';
 var received_updates = [];
 
 app.get('/', function(req, res) {
-  console.log(JSON.stringify(received_updates, null, 2));
   res.send('<pre>' + JSON.stringify(received_updates, null, 2) + '</pre>');
 });
 
