@@ -21,7 +21,7 @@ var token = process.env.TOKEN || 'token';
 var received_updates = [];
 
 app.get('/', function(req, res) {
-  res.console.log(JSON.stringify(JSONreceived_updates));
+  console.log(JSON.stringify(received_updates, null, 2));
   res.send('<pre>' + JSON.stringify(received_updates, null, 2) + '</pre>');
 });
 
