@@ -38,9 +38,10 @@ app.use(bodyParser.json());
 var token = process.env.TOKEN || 'token';
 var received_updates = [];
 
+console.log(received_updates[0]);
+
 app.get('/', function(req, res) {
   res.send(JSON.stringify(received_updates, null, 2));
-  res.console.log('data',received_updates);
 });
 
 app.get(['/facebook', '/instagram'], function(req, res) {
