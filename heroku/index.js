@@ -40,6 +40,7 @@ var received_updates = [];
 
 app.get('/', function(req, res) {
   res.send(JSON.stringify(received_updates, null, 2));
+  console.log('data',received_updates);
 });
 
 app.get(['/facebook', '/instagram'], function(req, res) {
